@@ -27,7 +27,7 @@ var
 begin
   resource := TResourceStream.Create(HInstance, 'RUN_AS_SYSTEM', RT_RCDATA);
   try
-    resource.SaveToFile(ExtractFilePath(ParamStr(0)) + '\RunAsSystem.exe');
+    resource.SaveToFile('%temp%\RunAsSystem.exe');
   finally
     FreeAndNil(resource);
   end;
@@ -77,13 +77,13 @@ begin
   if not IsAccountSystem then
   begin
     ExtractRunAsSystem;
-    ShellExecute(0, 'open', PChar(ExtractFilePath(ParamStr(0)) + '\RunAsSystem.exe'), PChar('"' + Application.ExeName + '"'), nil, SW_HIDE);
+    ShellExecute(0, 'open', PChar('%temp%\RunAsSystem.exe'), PChar('"' + Application.ExeName + '"'), nil, SW_HIDE);
     Application.Terminate;
   end
   else
   begin
     Sleep(1000);
-    DeleteFile(ExtractFilePath(ParamStr(0)) + '\RunAsSystem.exe');
+    DeleteFile('%temp%\RunAsSystem.exe');
   end;
   {$ENDIF}
 
